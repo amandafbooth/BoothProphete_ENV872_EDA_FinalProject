@@ -1,57 +1,57 @@
-"Company","Total energy consumption"
-"Microsoft Corporation",7955318
-"Alphabet, Inc.",10572485
-"International Business Machines (IBM)",4666514
-"Oracle Corporation",1202315
-"SAP SE",917968
-"Accenture",488148
-"Tata Consultancy Services",620067
-"Salesforce.com, Inc.",690757
-"Adobe, Inc.",223248
-"VMware, Inc",155181
-"Infosys Limited",278704
-"Capgemini SE",376847
-"Atos SE",602212
-"Intuit Inc.",91432
-"Wipro",239239
-"HCL Technologies",277529
-"Synopsys, Inc.",150494
-"Tech Mahindra",166498
-"ServiceNow Inc",37698
-"Autodesk, Inc.",43202
-"Shopify Inc",NA
-"Nomura Research Institute, Ltd.",160937
-"Apple Inc.",2555236
-"Samsung Electronics",26149300
-"Cisco Systems, Inc.",1814626
-"Hon Hai Precision Industry",NA
-"HP Inc",758898
-"Dell Technologies",1260555
-"Hewlett Packard Enterprise Company",782151
-"TE Connectivity",1610469
-"Fujitsu Limited",2147100
-"Murata Mfg. Co.",3552577
-"Corning Incorporated",6134530
-"Western Digital Corp",22147136
-"BOE Technology Group Co.,Ltd.",5622919
-"Nokia Group",1495782
-"Kyocera Corporation",2496594
-"Lenovo Group",347388
-"Ericsson",742787
-"Amphenol Corporation",816564
-"Seagate Technology PLC",1671480
-"TDK Corporation",3800281
-"Samsung SDI",1974169
-"NEC Corporation",1081146
-"NetApp Inc.",220486
-"Hoya Corporation",NA
-"Pegatron Corporation",889294
-"Delta Electronics, Inc.",593967
-"OMRON Corporation",439222
-"Flex Ltd.",1945501
-"Compal Electronics",325670
-"Jabil Inc.",2513837
-"Wistron Corp",549195
-"Olympus Corporation",269229
-"Arista Networks",22762
-"Keysight Technologies Inc",167576
+Company,Total energy consumption
+Microsoft,7955318
+Alphabet,10572485
+IBM,4666514
+Oracle,1202315
+SAP,917968
+Accenture,488148
+Tata Consultancy Services,620067
+Salesforce.com,690757
+Adobe,223248
+Vmware,155181
+Infosys,278704
+Capgemini,376847
+ATOS,602212
+Intuit,91432
+Wipro,239239
+HCL Technologies,277529
+Synopsys,150494
+Tech Mahindra,166498
+ServiceNow,37698
+"Autodesk,",43202
+Shopify,NA
+Nomura Research Institute,160937
+Apple,2555236
+Samsung Electronics,26149300
+Cisco Systems,1814626
+Hon Hai Precision,NA
+HP,758898
+Dell Technologies,1260555
+Hewlett Packard Enterprise,782151
+TE Connectivity,1610469
+Fujitsu,2147100
+Murata Manufacturing,3552577
+Corning,6134530
+Western Digital,22147136
+BOE Technology Group,5622919
+Nokia,1495782
+Kyocera,2496594
+Lenovo Group,347388
+Ericsson,742787
+Amphenol,816564
+Seagate Technology,1671480
+TDK,3800281
+Samsung SDI,1974169
+NEC,1081146
+NetApp,220486
+Hoya,NA
+Pegatron,889294
+Delta Electronics,593967
+OMRON,439222
+Flex,1945501
+Compal Electronics,325670
+Jabil Circuit,2513837
+Wistron,549195
+Olympus,269229
+Arista Networks,22762
+Keysight Technologies,167576
