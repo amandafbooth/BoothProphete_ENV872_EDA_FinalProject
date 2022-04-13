@@ -1,57 +1,57 @@
 "Company","Total energy consumption"
-"Microsoft Corporation"," 7,955,318 "
-"Alphabet, Inc."," 10,572,485 "
-"International Business Machines (IBM)"," 4,666,514 "
-"Oracle Corporation"," 1,202,315 "
-"SAP SE"," 917,968 "
-"Accenture"," 488,148 "
-"Tata Consultancy Services"," 620,067 "
-"Salesforce.com, Inc."," 690,757 "
-"Adobe, Inc."," 223,248 "
-"VMware, Inc"," 155,181 "
-"Infosys Limited"," 278,704 "
-"Capgemini SE"," 376,847 "
-"Atos SE"," 602,212 "
-"Intuit Inc."," 91,432 "
-"Wipro"," 239,239 "
-"HCL Technologies"," 277,529 "
-"Synopsys, Inc."," 150,494 "
-"Tech Mahindra"," 166,498 "
-"ServiceNow Inc"," 37,698 "
-"Autodesk, Inc."," 43,202 "
-"Shopify Inc"," -   "
-"Nomura Research Institute, Ltd."," 160,937 "
-"Apple Inc."," 2,555,236 "
-"Samsung Electronics"," 26,149,300 "
-"Cisco Systems, Inc."," 1,814,626 "
-"Hon Hai Precision Industry"," -   "
-"HP Inc"," 758,898 "
-"Dell Technologies"," 1,260,555 "
-"Hewlett Packard Enterprise Company"," 782,151 "
-"TE Connectivity"," 1,610,469 "
-"Fujitsu Limited"," 2,147,100 "
-"Murata Mfg. Co."," 3,552,577 "
-"Corning Incorporated"," 6,134,530 "
-"Western Digital Corp"," 22,147,136 "
-"BOE Technology Group Co.,Ltd."," 5,622,919 "
-"Nokia Group"," 1,495,782 "
-"Kyocera Corporation"," 2,496,594 "
-"Lenovo Group"," 347,388 "
-"Ericsson"," 742,787 "
-"Amphenol Corporation"," 816,564 "
-"Seagate Technology PLC"," 1,671,480 "
-"TDK Corporation"," 3,800,281 "
-"Samsung SDI"," 1,974,169 "
-"NEC Corporation"," 1,081,146 "
-"NetApp Inc."," 220,486 "
-"Hoya Corporation"," -   "
-"Pegatron Corporation"," 889,294 "
-"Delta Electronics, Inc."," 593,967 "
-"OMRON Corporation"," 439,222 "
-"Flex Ltd."," 1,945,501 "
-"Compal Electronics"," 325,670 "
-"Jabil Inc."," 2,513,837 "
-"Wistron Corp"," 549,195 "
-"Olympus Corporation"," 269,229 "
-"Arista Networks"," 22,762 "
-"Keysight Technologies Inc"," 167,576 "
+"Microsoft Corporation",7955318
+"Alphabet, Inc.",10572485
+"International Business Machines (IBM)",4666514
+"Oracle Corporation",1202315
+"SAP SE",917968
+"Accenture",488148
+"Tata Consultancy Services",620067
+"Salesforce.com, Inc.",690757
+"Adobe, Inc.",223248
+"VMware, Inc",155181
+"Infosys Limited",278704
+"Capgemini SE",376847
+"Atos SE",602212
+"Intuit Inc.",91432
+"Wipro",239239
+"HCL Technologies",277529
+"Synopsys, Inc.",150494
+"Tech Mahindra",166498
+"ServiceNow Inc",37698
+"Autodesk, Inc.",43202
+"Shopify Inc",NA
+"Nomura Research Institute, Ltd.",160937
+"Apple Inc.",2555236
+"Samsung Electronics",26149300
+"Cisco Systems, Inc.",1814626
+"Hon Hai Precision Industry",NA
+"HP Inc",758898
+"Dell Technologies",1260555
+"Hewlett Packard Enterprise Company",782151
+"TE Connectivity",1610469
+"Fujitsu Limited",2147100
+"Murata Mfg. Co.",3552577
+"Corning Incorporated",6134530
+"Western Digital Corp",22147136
+"BOE Technology Group Co.,Ltd.",5622919
+"Nokia Group",1495782
+"Kyocera Corporation",2496594
+"Lenovo Group",347388
+"Ericsson",742787
+"Amphenol Corporation",816564
+"Seagate Technology PLC",1671480
+"TDK Corporation",3800281
+"Samsung SDI",1974169
+"NEC Corporation",1081146
+"NetApp Inc.",220486
+"Hoya Corporation",NA
+"Pegatron Corporation",889294
+"Delta Electronics, Inc.",593967
+"OMRON Corporation",439222
+"Flex Ltd.",1945501
+"Compal Electronics",325670
+"Jabil Inc.",2513837
+"Wistron Corp",549195
+"Olympus Corporation",269229
+"Arista Networks",22762
+"Keysight Technologies Inc",167576
