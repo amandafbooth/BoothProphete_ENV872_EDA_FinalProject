@@ -5,9 +5,9 @@ output:
     fig_caption: yes
     number_sections: yes
 geometry: margin=2.54cm
-title: "Insert title of project here"
+title: "Is big tech greenwashing?"
 subtitle: "Web address for GitHub repository"
-author: "Name"
+author: "Amanda Booth and Ricky Prophete"
 fontsize: 12pt
 mainfont: Times New Roman
 
@@ -26,9 +26,35 @@ mainfont: Times New Roman
 
 # Load your packages
 
-# Set your ggplot theme
+library(tidyverse)
+library(corrplot)
 
-# Load your datasets
+#Build theme
+mytheme <- theme_linedraw(base_size = 10) +
+  theme(axis.text = element_text(color = "rosybrown"), 
+        legend.position = "bottom")
+
+#Set as default theme
+theme_set(mytheme)
+
+#Load data
+
+company_selection_clean <- read.csv("./Data/Processed/Company_Selection_Clean.csv")
+
+Reporting_inconsistencies_processed <- read.csv("./Data/Processed/Reporting_inconsistencies_processed.csv")
+
+Energy_Usage_Clean <- read.csv("./Data/Processed/Energy_Usage_Clean.csv")
+
+#Join datasets 
+
+company_profiles <- left_join(company_selection_clean, Reporting_inconsistencies_processed)
+
+company_profiles <- left_join(company_profiles, Energy_Usage_Clean)
+
+#Filter out 1.0 ratios 
+
+company_profiles2 <- company_profiles[!is.na(company_profiles$Company.report),]
+  
 
 ```
 
@@ -70,6 +96,20 @@ For this analysis, we used data analyzed in a *Nature Communications* study that
 
 # Summary and Conclusions
 
+We did not find a statistically significant relationship between companies’ reporting discrepancy ratios and variables that indicate size. As expected, we found a relationship between total energy consumption and size indicators. But surprisingly the indicator with the most confidence was value of assets. 
+
+```{r plot1, include=FALSE, fig.cap="Relationship between asset value and total energy consumption"}
+Plot1 <- ggplot(company_profiles2, aes(x = Assets, y = Total.energy.consumption)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(x = "Value of assets (in millions)", y = "Total energy consumption (MWh)")
+print(Plot1)
+
+```
+
+Our assumption that “big tech” would show more reporting discrepancies was not borne out in the data we analyzed. In future analyses on this topic, we would ideally have access to more CDP reports and more corporate reports in order to have a sample size that allows for more statistically accuracy. 
 
 \newpage
 
