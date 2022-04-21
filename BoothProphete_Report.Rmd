@@ -62,6 +62,25 @@ company_profiles2 <- company_profiles[!is.na(company_profiles$Company.report),]
 
 # Rationale and Research Questions
 
+As the world searches for climate change mitigation strategies in the face of apocalyptic climate projections and escalating real-world effects, the need to decarbonize the global economy has placed increasing societal and political pressure on companies to limit their emissions. Part of this pressure has come from the Environmental, Social, and Governance investing movement, which focuses on sustainability as a key part of identifying material risks and growth opportunities for companies. 
+
+Corporations have responded to the decarbonization challenge posed by these external forces by self-disclosing their carbon footprints along with action plans for reducing them over a specified time horizon. However, there are 2 key issues with the self-disclosure model: 
+
+*	Current emissions accounting and reporting practices have not been harmonized, leading to differential approaches to carbon accounting.
+
+*	Given a lack of oversight in emissions reporting and the nature of informational asymmetries between organizations and investors, companies face perverse incentives to understate their carbon footprint and/or otherwise mischaracterize their progress toward decarbonization.
+
+There have been recent efforts to address these issues. In March of 2022, the Securities and Exchange Commission (SEC) proposed rule amendments that would require companies to incorporate specific climate-related information in their statements and reports. This rule would also impose additional disclosure requirements on organizations that have made public commitments to take steps to address climate change. As part of their rationale for the proposed rule changes, the SEC noted both the need to harmonize disclosure standards and a desire to mitigate attempts by companies to engage in “green-washing” or “climate-washing”.
+
+It is in this context that we sought to understand the extent to which companies might be engaged in green- or climate-washing, and whether organizations engaged in these behaviors possessed specific attributes that could reliably predict the propensity of such behavior. To investigate this, we reviewed a partial dataset from the Carbon Disclosure Project (CDP), which is a nonprofit that manages a global carbon emissions disclosure system. As CDP data is paywalled, we were able to access this partial dataset via a study published in Nature (Klaaßen & Stoll). This dataset and its attributes are described in greater detail in our Dataset Information section. 
+
+Our primary research question was the following:
+
+*	What attributes are the strongest predictors for emissions reporting discrepancies?
+
+Over the course of our work, our dataset inspired an additional question:
+
+*	What attributes are the strongest predictors for an organization’s total energy consumption?
 
 
 \newpage

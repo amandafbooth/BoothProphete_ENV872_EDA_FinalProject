@@ -5,10 +5,21 @@
 \documentclass[
   12pt,
 ]{article}
+\title{Is big tech greenwashing?}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{\url{https://github.com/amandafbooth/BoothProphete_ENV872_EDA_FinalProject}}
+\author{Amanda Booth and Ricky Prophete}
+\date{}
+
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -44,7 +55,8 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=2.54cm]{geometry}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -53,7 +65,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -70,17 +82,9 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
-
-\title{Is big tech greenwashing?}
-\usepackage{etoolbox}
-\makeatletter
-\providecommand{\subtitle}[1]{% add subtitle to \maketitle
-  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
-}
-\makeatother
-\subtitle{\url{https://github.com/amandafbooth/BoothProphete_ENV872_EDA_FinalProject}}
-\author{Amanda Booth and Ricky Prophete}
-\date{}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
 
 \begin{document}
 \maketitle
@@ -96,6 +100,73 @@
 \hypertarget{rationale-and-research-questions}{%
 \section{Rationale and Research
 Questions}\label{rationale-and-research-questions}}
+
+As the world searches for climate change mitigation strategies in the
+face of apocalyptic climate projections and escalating real-world
+effects, the need to decarbonize the global economy has placed
+increasing societal and political pressure on companies to limit their
+emissions. Part of this pressure has come from the Environmental,
+Social, and Governance investing movement, which focuses on
+sustainability as a key part of identifying material risks and growth
+opportunities for companies.
+
+Corporations have responded to the decarbonization challenge posed by
+these external forces by self-disclosing their carbon footprints along
+with action plans for reducing them over a specified time horizon.
+However, there are 2 key issues with the self-disclosure model:
+
+\begin{itemize}
+\item
+  Current emissions accounting and reporting practices have not been
+  harmonized, leading to differential approaches to carbon accounting.
+\item
+  Given a lack of oversight in emissions reporting and the nature of
+  informational asymmetries between organizations and investors,
+  companies face perverse incentives to understate their carbon
+  footprint and/or otherwise mischaracterize their progress toward
+  decarbonization.
+\end{itemize}
+
+There have been recent efforts to address these issues. In March of
+2022, the Securities and Exchange Commission (SEC) proposed rule
+amendments that would require companies to incorporate specific
+climate-related information in their statements and reports. This rule
+would also impose additional disclosure requirements on organizations
+that have made public commitments to take steps to address climate
+change. As part of their rationale for the proposed rule changes, the
+SEC noted both the need to harmonize disclosure standards and a desire
+to mitigate attempts by companies to engage in ``green-washing'' or
+``climate-washing''.
+
+It is in this context that we sought to understand the extent to which
+companies might be engaged in green- or climate-washing, and whether
+organizations engaged in these behaviors possessed specific attributes
+that could reliably predict the propensity of such behavior. To
+investigate this, we reviewed a partial dataset from the Carbon
+Disclosure Project (CDP), which is a nonprofit that manages a global
+carbon emissions disclosure system. As CDP data is paywalled, we were
+able to access this partial dataset via a study published in Nature
+(Klaaßen \& Stoll). This dataset and its attributes are described in
+greater detail in our Dataset Information section.
+
+Our primary research question was the following:
+
+\begin{itemize}
+\tightlist
+\item
+  What attributes are the strongest predictors for emissions reporting
+  discrepancies?
+\end{itemize}
+
+Over the course of our work, our dataset inspired an additional
+question:
+
+\begin{itemize}
+\tightlist
+\item
+  What attributes are the strongest predictors for an organization's
+  total energy consumption?
+\end{itemize}
 
 \newpage
 
@@ -114,8 +185,8 @@ do and don't include in their carbon emissions reporting. The
 their official company reports to what companies reported in CDP
 questionnaires and found technology companies often under reported
 emissions in official company reports. The data from nature came in the
-form of an Excel Workbook with many tabs. We converted three tabs into
-CSVs for analysis in R:
+form of an Excel Workbook with many panels. We converted three panels
+into CSVs for analysis in R:
 
 \begin{itemize}
 \tightlist
@@ -129,30 +200,22 @@ CSVs for analysis in R:
 
 Table 1: Data Information
 
-\begin{longtable}[]{@{}ll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.62}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.38}}@{}}
 \toprule
-\begin{minipage}[b]{0.58\columnwidth}\raggedright
-\textbf{Detail}\strut
-\end{minipage} & \begin{minipage}[b]{0.36\columnwidth}\raggedright
-\textbf{Description}\strut
-\end{minipage}\tabularnewline
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Detail}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Description}
+\end{minipage} \\
 \midrule
 \endhead
-\begin{minipage}[t]{0.58\columnwidth}\raggedright
-Data Source\strut
-\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
-Nature Communications\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.58\columnwidth}\raggedright
-Retrieved from\strut
-\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
-\url{https://www.nature.com/articles/s41467-021-26349-x}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.58\columnwidth}\raggedright
-Variables Used\strut
-\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
-Company, Sales, Profits, Assets, Market value, Company report,\strut
-\end{minipage}\tabularnewline
+Data Source & Nature Communications \\
+Retrieved from &
+\url{https://www.nature.com/articles/s41467-021-26349-x} \\
+Variables Used & Company, Sales, Profits, Assets, Market value, Company
+report, \\
 \bottomrule
 \end{longtable}
 
@@ -167,18 +230,18 @@ ratio, Total energy consumption Data Collection Year \textbar{} 2019
 \caption{Top 5 Companies by Highest Reporting Inconsistency
 Ratio}\tabularnewline
 \toprule
-Company & Inconsistency\_ratio\tabularnewline
+Company & Inconsistency\_ratio \\
 \midrule
 \endfirsthead
 \toprule
-Company & Inconsistency\_ratio\tabularnewline
+Company & Inconsistency\_ratio \\
 \midrule
 \endhead
-Samsung SDI & 0.9994994\tabularnewline
-SAP & 0.9620065\tabularnewline
-Adobe & 0.9005902\tabularnewline
-Salesforce.com & 0.8326687\tabularnewline
-IBM & 0.7553958\tabularnewline
+Samsung SDI & 0.9994994 \\
+SAP & 0.9620065 \\
+Adobe & 0.9005902 \\
+Salesforce.com & 0.8326687 \\
+IBM & 0.7553958 \\
 \bottomrule
 \end{longtable}
 
