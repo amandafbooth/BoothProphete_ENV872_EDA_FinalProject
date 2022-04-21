@@ -135,6 +135,16 @@ top5 <- company_profiles2 %>%
 kable(top5, caption = "Top 5 Companies by Highest Reporting Inconsistency Ratio", align = 'l')
 ```
 
+We also reviewed the extent to which our variables of interest might be correlated. These results are published here:
+
+```{r correlations, echo=FALSE, fig.cap="Correlation matrix of interested variables"}
+
+correlation <- cor(company_profiles2 %>% select(Sales:Market.Value,
+                    Inconsistency_ratio:Total.energy.consumption) %>% drop_na())
+
+corrplot(correlation, method = "ellipse")
+
+```
 
 \newpage
 
@@ -150,11 +160,36 @@ To answer this question, we leveraged a linear model:
 
 Our outcome of interest was the Inconsistency Ratio derived as part of our wrangling process. Our explanatory variables were Sales, Profits, Assets, and Market Value. These were regressed against our outcome variable. We did not find any statistically significant relationship between these variables and the outcome of interest.
 
+```{r regression1, echo=FALSE}
+
+regression_ratio_mv <- lm(data = company_profiles2,  Inconsistency_ratio ~ Market.Value)
+
+summary(regression_ratio_mv)
+```
+
+
 ## Question 2: What attributes are the strongest predictors for an organization’s total energy consumption?
 
 To answer this question, we leveraged the same methodology described in our first question, with the only change occuring to our outcome of interest. This new outcome of interest was total energy consumption (MWh). Assets turned out to be the attribute that could predict total energy consumption with the highest degree of statistical confidence. This statistic is shown here:
 
-```{r}
+```{r regression2, echo=FALSE}
+
+regression_assets_energy <- lm(data = company_profiles2, Total.energy.consumption ~ Assets)
+
+regression_mv_energy <- lm(data = company_profiles2,  Total.energy.consumption ~ Market.Value)
+
+regression_sales_energy <- lm(data = company_profiles2,  Total.energy.consumption ~ Sales)
+
+regression_profits_energy <- lm(data = company_profiles2,  Total.energy.consumption ~ Profits)
+
+
+summary(regression_assets_energy) #strongest relationship
+
+summary(regression_mv_energy)
+
+summary(regression_sales_energy)
+
+summary(regression_profits_energy)
 
 ```
 
