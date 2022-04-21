@@ -5,10 +5,21 @@
 \documentclass[
   12pt,
 ]{article}
+\title{Is big tech greenwashing?}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{\url{https://github.com/amandafbooth/BoothProphete_ENV872_EDA_FinalProject}}
+\author{Amanda Booth and Ricky Prophete}
+\date{}
+
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -44,7 +55,8 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=2.54cm]{geometry}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -53,7 +65,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-\usepackage{graphicx,grffile}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -70,17 +82,9 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
-
-\title{Is big tech greenwashing?}
-\usepackage{etoolbox}
-\makeatletter
-\providecommand{\subtitle}[1]{% add subtitle to \maketitle
-  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
-}
-\makeatother
-\subtitle{\url{https://github.com/amandafbooth/BoothProphete_ENV872_EDA_FinalProject}}
-\author{Amanda Booth and Ricky Prophete}
-\date{}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
 
 \begin{document}
 \maketitle
@@ -139,9 +143,10 @@ that could reliably predict the propensity of such behavior. To
 investigate this, we reviewed a partial dataset from the Carbon
 Disclosure Project (CDP), which is a nonprofit that manages a global
 carbon emissions disclosure system. As CDP data is paywalled, we were
-able to access this partial dataset via a study published in Nature
-(Klaaßen \& Stoll). This dataset and its attributes are described in
-greater detail in our Dataset Information section.
+able to access this partial dataset via a study published in
+\emph{Nature Communications} (\emph{Nature}) (Klaaßen \& Stoll). This
+dataset and its attributes are described in greater detail in our
+Dataset Information section.
 
 Our primary research question was the following:
 
@@ -170,17 +175,16 @@ question:
 \hypertarget{data-retrieval}{%
 \subsection{Data Retrieval}\label{data-retrieval}}
 
-For this analysis, we used data analyzed in a \emph{Nature
-Communications} study that took data from 2019 CDP reports. CDP, a
-carbon footprint registry for companies and municipalities, conducts an
-in-depth questionnaire that inquires about the details of what entities
-do and don't include in their carbon emissions reporting. The
-\emph{Nature} study compared what technology companies published in
-their official company reports to what companies reported in CDP
-questionnaires and found technology companies often under reported
-emissions in official company reports. The data from nature came in the
-form of an Excel Workbook with many panels. We converted three panels
-into CSVs for analysis in R:
+For this analysis, we used data analyzed in a \emph{Nature} study that
+took data from 2019 CDP reports. CDP, a carbon footprint registry for
+companies and municipalities, conducts an in-depth questionnaire that
+inquires about the details of what entities do and don't include in
+their carbon emissions reporting. The \emph{Nature} study compared what
+technology companies published in their official company reports to what
+companies reported in CDP questionnaires and found technology companies
+often under reported emissions in official company reports. The data
+from nature came in the form of an Excel Workbook with many panels. We
+converted three panels into CSVs for analysis in R:
 
 \begin{itemize}
 \tightlist
@@ -194,61 +198,98 @@ into CSVs for analysis in R:
 
 Table 1: Data Information
 
-\begin{longtable}[]{@{}ll@{}}
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.62}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.38}}@{}}
 \toprule
-\begin{minipage}[b]{0.58\columnwidth}\raggedright
-\textbf{Detail}\strut
-\end{minipage} & \begin{minipage}[b]{0.36\columnwidth}\raggedright
-\textbf{Description}\strut
-\end{minipage}\tabularnewline
+\begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Detail}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\textbf{Description}
+\end{minipage} \\
 \midrule
 \endhead
-\begin{minipage}[t]{0.58\columnwidth}\raggedright
-Data Source\strut
-\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
-Nature Communications\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.58\columnwidth}\raggedright
-Retrieved from\strut
-\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
-\url{https://www.nature.com/articles/s41467-021-26349-x}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.58\columnwidth}\raggedright
-Variables Used\strut
-\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
-Company, Sales, Profits, Assets, Market value, Company report, CDP
-emissions, Emission reports deviation, Reporting inconsistency ratio,
-Total energy consumption\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.58\columnwidth}\raggedright
-Data Collection Year\strut
-\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
-2019\strut
-\end{minipage}\tabularnewline
+Data Source & Nature Communications \\
+Retrieved from &
+\url{https://www.nature.com/articles/s41467-021-26349-x} \\
+Variables Used & Company, Sales, Profits, Assets, Market value, Company
+report, CDP emissions, Emission reports deviation, Reporting
+inconsistency ratio, Total energy consumption \\
+Data Collection Year & 2019 \\
 \bottomrule
 \end{longtable}
+
+\hypertarget{data-wrangling}{%
+\subsection{Data Wrangling}\label{data-wrangling}}
+
+We processed our data by selecting relevant columns in each panel. These
+are described below:
+
+\hypertarget{company-information}{%
+\subsubsection{Company Information}\label{company-information}}
+
+For this panel, we began by identifying and slicing relevant rows of
+information pertaining to corporations of interest. We then selected
+columns with relevant attributes, and renamed them like so: Company,
+Industry, Country, Sales, Profits, Assets, Market Value, CDP Score 2019.
+Next, we converted column values to numeric data by removing special
+characters and changing the variable class.
+
+\hypertarget{emissions-predictors}{%
+\subsubsection{Emissions Predictors}\label{emissions-predictors}}
+
+For this panel, we began by isolating values of interest. We sliced
+relevant rows, then selected columns with relevant attributes Next, we
+transposed the data so that each row contained consumption data for a
+specific company. We renamed the resulting columns Company and Total
+energy consumption. Finally, we removed special characters and converted
+column values to numeric data.
+
+\hypertarget{reporting-inconsistencies}{%
+\subsubsection{Reporting
+Inconsistencies}\label{reporting-inconsistencies}}
+
+For this panel, we again selected and filtered a specific variable of
+interest, in this case the difference between publicly reported
+emissions and emissions reported to CDP. We then transposed the data and
+renamed columns Company, Company.report, CDP, and Deviation. We
+substituted ``na''s for missing data, then removed special characters
+and converted existing data to numeric. Finally, we created a new
+column, populated by variables, derived from dividing the Deviation
+value by the CDP value. We named this column Inconsistency Ratio.
+
+Once our individual datasets were processed, we combined them into a
+single dataframe. To accomplish this, we created a new dataframe named
+company\_profiles by left joining the Company Information dataset with
+the Reporting Inconsistencies datset. We then left joined the Emissions
+Predictors dataset to this new company\_profiles dataframe. To assist
+our analysis, we concluded by filtering out ratios equal to 1 by
+dropping ``na''s.
 
 \newpage
 
 \hypertarget{exploratory-analysis}{%
 \section{Exploratory Analysis}\label{exploratory-analysis}}
 
+We reviewed our dataset and identified the top offenders by
+inconsistency ratio. The top 5 are shown here:
+
 \begin{longtable}[]{@{}ll@{}}
 \caption{Top 5 Companies by Highest Reporting Inconsistency
 Ratio}\tabularnewline
 \toprule
-Company & Inconsistency\_ratio\tabularnewline
+Company & Inconsistency\_ratio \\
 \midrule
 \endfirsthead
 \toprule
-Company & Inconsistency\_ratio\tabularnewline
+Company & Inconsistency\_ratio \\
 \midrule
 \endhead
-Samsung SDI & 0.9994994\tabularnewline
-SAP & 0.9620065\tabularnewline
-Adobe & 0.9005902\tabularnewline
-Salesforce.com & 0.8326687\tabularnewline
-IBM & 0.7553958\tabularnewline
+Samsung SDI & 0.9994994 \\
+SAP & 0.9620065 \\
+Adobe & 0.9005902 \\
+Salesforce.com & 0.8326687 \\
+IBM & 0.7553958 \\
 \bottomrule
 \end{longtable}
 
@@ -257,13 +298,36 @@ IBM & 0.7553958\tabularnewline
 \hypertarget{analysis}{%
 \section{Analysis}\label{analysis}}
 
-\hypertarget{question-1-insert-specific-question-here-and-add-additional-subsections-for-additional-questions-below-if-needed}{%
-\subsection{Question 1: \textless insert specific question here and add
-additional subsections for additional questions below, if
-needed\textgreater{}}\label{question-1-insert-specific-question-here-and-add-additional-subsections-for-additional-questions-below-if-needed}}
+\hypertarget{question-1-what-attributes-are-the-strongest-predictors-for-emissions-reporting-discrepancies}{%
+\subsection{Question 1: What attributes are the strongest predictors for
+emissions reporting
+discrepancies?}\label{question-1-what-attributes-are-the-strongest-predictors-for-emissions-reporting-discrepancies}}
 
-\hypertarget{question-2}{%
-\subsection{Question 2:}\label{question-2}}
+To answer this question, we leveraged a linear model:
+
+\begin{figure}
+\centering
+\includegraphics{./BoothProphete_Report_files/figure-latex/Linear_regression.png}
+\caption{A Simple Linear Regression}
+\end{figure}
+
+Our outcome of interest was the Inconsistency Ratio derived as part of
+our wrangling process. Our explanatory variables were Sales, Profits,
+Assets, and Market Value. These were regressed against our outcome
+variable. We did not find any statistically significant relationship
+between these variables and the outcome of interest.
+
+\hypertarget{question-2-what-attributes-are-the-strongest-predictors-for-an-organizations-total-energy-consumption}{%
+\subsection{Question 2: What attributes are the strongest predictors for
+an organization's total energy
+consumption?}\label{question-2-what-attributes-are-the-strongest-predictors-for-an-organizations-total-energy-consumption}}
+
+To answer this question, we leveraged the same methodology described in
+our first question, with the only change occuring to our outcome of
+interest. This new outcome of interest was total energy consumption
+(MWh). Assets turned out to be the attribute that could predict total
+energy consumption with the highest degree of statistical confidence.
+This statistic is shown here:
 
 \newpage
 
@@ -293,7 +357,7 @@ statistically accuracy.
 \hypertarget{references}{%
 \section{References}\label{references}}
 
-Klaaßen, Lena, and Christian Stoll. ``Harmonizing Corporate Carbon
+Klaaßen, Lena and Stoll, Christian. ``Harmonizing Corporate Carbon
 Footprints.'' Nature News, Nature Publishing Group, 22 Oct.~2021,
 \url{https://www.nature.com/articles/s41467-021-26349-x}.
 

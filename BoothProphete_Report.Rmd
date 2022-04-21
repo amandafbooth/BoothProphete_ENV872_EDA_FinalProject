@@ -70,7 +70,7 @@ Corporations have responded to the decarbonization challenge posed by these exte
 
 There have been recent efforts to address these issues. In March of 2022, the Securities and Exchange Commission (SEC) proposed rule amendments that would require companies to incorporate specific climate-related information in their statements and reports. This rule would also impose additional disclosure requirements on organizations that have made public commitments to take steps to address climate change. As part of their rationale for the proposed rule changes, the SEC noted both the need to harmonize disclosure standards and a desire to mitigate attempts by companies to engage in “green-washing” or “climate-washing”.
 
-It is in this context that we sought to understand the extent to which companies might be engaged in green- or climate-washing, and whether organizations engaged in these behaviors possessed specific attributes that could reliably predict the propensity of such behavior. To investigate this, we reviewed a partial dataset from the Carbon Disclosure Project (CDP), which is a nonprofit that manages a global carbon emissions disclosure system. As CDP data is paywalled, we were able to access this partial dataset via a study published in Nature (Klaaßen & Stoll). This dataset and its attributes are described in greater detail in our Dataset Information section. 
+It is in this context that we sought to understand the extent to which companies might be engaged in green- or climate-washing, and whether organizations engaged in these behaviors possessed specific attributes that could reliably predict the propensity of such behavior. To investigate this, we reviewed a partial dataset from the Carbon Disclosure Project (CDP), which is a nonprofit that manages a global carbon emissions disclosure system. As CDP data is paywalled, we were able to access this partial dataset via a study published in *Nature Communications* (*Nature*) (Klaaßen & Stoll). This dataset and its attributes are described in greater detail in our Dataset Information section. 
 
 Our primary research question was the following:
 
@@ -87,7 +87,7 @@ Over the course of our work, our dataset inspired an additional question:
 
 ## Data Retrieval 
 
-For this analysis, we used data analyzed in a *Nature Communications* study that took data from 2019 CDP reports. CDP, a carbon footprint registry for companies and municipalities, conducts an in-depth questionnaire that inquires about the details of what entities do and don’t include in their carbon emissions reporting. The *Nature* study compared what technology companies published in their official company reports to what companies reported in CDP questionnaires and found technology companies often under reported emissions in official company reports. The data from nature came in the form of an Excel Workbook with many panels. We converted three panels into CSVs for analysis in R:
+For this analysis, we used data analyzed in a *Nature* study that took data from 2019 CDP reports. CDP, a carbon footprint registry for companies and municipalities, conducts an in-depth questionnaire that inquires about the details of what entities do and don’t include in their carbon emissions reporting. The *Nature* study compared what technology companies published in their official company reports to what companies reported in CDP questionnaires and found technology companies often under reported emissions in official company reports. The data from nature came in the form of an Excel Workbook with many panels. We converted three panels into CSVs for analysis in R:
 
 * Company information 
 * Emissions predictors
@@ -101,10 +101,31 @@ Data Source          | Nature Communications
 Retrieved from       | https://www.nature.com/articles/s41467-021-26349-x
 Variables Used       | Company, Sales, Profits, Assets, Market value, Company report, CDP emissions, Emission reports deviation, Reporting inconsistency ratio, Total energy consumption 
 Data Collection Year | 2019
+
+
+## Data Wrangling
+
+We processed our data by selecting relevant columns in each panel. These are described below:
+
+### Company Information
+
+For this panel, we began by identifying and slicing relevant rows of information pertaining to corporations of interest. We then selected columns with relevant attributes, and renamed them like so: Company, Industry, Country, Sales, Profits, Assets, Market Value, CDP Score 2019. Next, we converted column values to numeric data by removing special characters and changing the variable class. 
+
+### Emissions Predictors
+
+For this panel, we began by isolating values of interest. We sliced relevant rows, then selected columns with relevant attributes Next, we transposed the data so that each row contained consumption data for a specific company. We renamed the resulting columns Company and Total energy consumption. Finally, we removed special characters and converted column values to numeric data.
+
+### Reporting Inconsistencies
+
+For this panel, we again selected and filtered a specific variable of interest, in this case the difference between publicly reported emissions and emissions reported to CDP. We then transposed the data and renamed columns Company, Company.report, CDP, and Deviation. We substituted “na”s for missing data, then removed special characters and converted existing data to numeric. Finally, we created a new column, populated by variables, derived from dividing the Deviation value by the CDP value. We named this column Inconsistency Ratio.
+
+Once our individual datasets were processed, we combined them into a single dataframe. To accomplish this, we created a new dataframe named company_profiles by left joining the Company Information dataset with the Reporting Inconsistencies datset. We then left joined the Emissions Predictors dataset to this new company_profiles dataframe. To assist our analysis, we concluded by filtering out ratios equal to 1 by dropping “na”s. 
+
 \newpage
 
 # Exploratory Analysis 
 
+We reviewed our dataset and identified the top offenders by inconsistency ratio. The top 5 are shown here:
 
 ```{r top5, echo=FALSE}
 top5 <- company_profiles2 %>% 
@@ -120,12 +141,22 @@ kable(top5, caption = "Top 5 Companies by Highest Reporting Inconsistency Ratio"
 # Analysis
 
 
+## Question 1: What attributes are the strongest predictors for emissions reporting discrepancies?
 
-## Question 1: <insert specific question here and add additional subsections for additional questions below, if needed>
+To answer this question, we leveraged a linear model:
 
-## Question 2: 
+![A Simple Linear Regression](./BoothProphete_Report_files/figure-latex/Linear_regression.png)
 
 
+Our outcome of interest was the Inconsistency Ratio derived as part of our wrangling process. Our explanatory variables were Sales, Profits, Assets, and Market Value. These were regressed against our outcome variable. We did not find any statistically significant relationship between these variables and the outcome of interest.
+
+## Question 2: What attributes are the strongest predictors for an organization’s total energy consumption?
+
+To answer this question, we leveraged the same methodology described in our first question, with the only change occuring to our outcome of interest. This new outcome of interest was total energy consumption (MWh). Assets turned out to be the attribute that could predict total energy consumption with the highest degree of statistical confidence. This statistic is shown here:
+
+```{r}
+
+```
 
 
 \newpage
@@ -154,4 +185,4 @@ Our assumption that “big tech” would show more reporting discrepancies was n
 
 # References
 
-Klaaßen, Lena, and Christian Stoll. “Harmonizing Corporate Carbon Footprints.” Nature News, Nature Publishing Group, 22 Oct. 2021, https://www.nature.com/articles/s41467-021-26349-x. 
+Klaaßen, Lena and Stoll, Christian. “Harmonizing Corporate Carbon Footprints.” Nature News, Nature Publishing Group, 22 Oct. 2021, https://www.nature.com/articles/s41467-021-26349-x. 
