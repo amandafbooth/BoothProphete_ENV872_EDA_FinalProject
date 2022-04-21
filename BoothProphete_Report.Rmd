@@ -6,7 +6,7 @@ output:
     number_sections: yes
 geometry: margin=2.54cm
 title: "Is big tech greenwashing?"
-subtitle: "Web address for GitHub repository"
+subtitle: "https://github.com/amandafbooth/BoothProphete_ENV872_EDA_FinalProject"
 author: "Amanda Booth and Ricky Prophete"
 fontsize: 12pt
 mainfont: Times New Roman
@@ -67,12 +67,23 @@ company_profiles2 <- company_profiles[!is.na(company_profiles$Company.report),]
 
 # Dataset Information
 
+## Data Retrieval 
+
 For this analysis, we used data analyzed in a *Nature Communications* study that took data from 2019 CDP reports. CDP, a carbon footprint registry for companies and municipalities, conducts an in-depth questionnaire that inquires about the details of what entities do and don’t include in their carbon emissions reporting. The *Nature* study compared what technology companies published in their official company reports to what companies reported in CDP questionnaires and found technology companies often under reported emissions in official company reports. The data from nature came in the form of an Excel Workbook with many tabs. We converted three tabs into CSVs for analysis in R:
 
 * Company information 
 * Emissions predictors
 * Reporting inconsistencies 
 
+Table 1: Data Information
+
+**Detail**           | **Description**
+---------------------| -------------
+Data Source          | Nature Communications
+Retrieved from       | https://www.nature.com/articles/s41467-021-26349-x
+Variables Used       | Company, Sales, Profits, Assets, Market value, Company report, 
+CDP emissions, Emission reports deviation, Reporting inconsistency ratio, Total energy consumption 
+Data Collection Year | 2019
 \newpage
 
 # Exploratory Analysis 
