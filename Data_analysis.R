@@ -1,4 +1,5 @@
 library(tidyverse)
+library(corrplot)
 
 #Load data
 
@@ -18,13 +19,16 @@ company_profiles <- left_join(company_profiles, Energy_Usage_Clean)
 
 company_profiles2 <- company_profiles[!is.na(company_profiles$Company.report),]
   
-  
-  drop_na(company_profiles$Company.report)
+
+#Correlations 
+
+correlation <- cor(company_profiles2 %>% select(Sales:Market.Value,
+                    Inconsistency_ratio:Total.energy.consumption) %>% drop_na())
+
+corrplot(correlation, method = "ellipse")
 
 
-
-#Data analysis
-
+#Regressions
 
 
 regression_assets_energy <- lm(data = company_profiles2, Total.energy.consumption ~ Assets)
@@ -47,6 +51,10 @@ summary(regression_profits_energy)
 
 summary(regression_ratio_mv)
 
+#Top 10 by deviation 
+
+top_n(company_profiles2$Inconsistency_ratio, 10, wt)
+
 #Plots
 
 options(scipen=5) 
@@ -58,11 +66,4 @@ ggplot(company_profiles2, aes(x = Assets, y = Total.energy.consumption)) +
   scale_y_log10() +
   labs(x = "Value of assets (in millions)", y = "Total energy consumption (MWh)")
 
-
-company_profiles$CDP.Score.2019 <- as.factor(company_profiles$CDP.Score.2019)
-
-clean_names <- company_profiles %>%
-  filter(CDP.Score.2019 == "A" | CDP.Score.2019 == "A-"| CDP.Score.2019 == "B"|
-           CDP.Score.2019 == "B-" | CDP.Score.2019 == "C" | CDP.Score.2019 == "D" |
-           CDP.Score.2019 == "F")
 
