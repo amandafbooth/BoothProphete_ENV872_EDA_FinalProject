@@ -70,7 +70,7 @@ company_profiles2 <- company_profiles[!is.na(company_profiles$Company.report),]
 
 ## Data Retrieval 
 
-For this analysis, we used data analyzed in a *Nature Communications* study that took data from 2019 CDP reports. CDP, a carbon footprint registry for companies and municipalities, conducts an in-depth questionnaire that inquires about the details of what entities do and don’t include in their carbon emissions reporting. The *Nature* study compared what technology companies published in their official company reports to what companies reported in CDP questionnaires and found technology companies often under reported emissions in official company reports. The data from nature came in the form of an Excel Workbook with many tabs. We converted three tabs into CSVs for analysis in R:
+For this analysis, we used data analyzed in a *Nature Communications* study that took data from 2019 CDP reports. CDP, a carbon footprint registry for companies and municipalities, conducts an in-depth questionnaire that inquires about the details of what entities do and don’t include in their carbon emissions reporting. The *Nature* study compared what technology companies published in their official company reports to what companies reported in CDP questionnaires and found technology companies often under reported emissions in official company reports. The data from nature came in the form of an Excel Workbook with many panels. We converted three panels into CSVs for analysis in R:
 
 * Company information 
 * Emissions predictors
