@@ -28,6 +28,7 @@ mainfont: Times New Roman
 
 library(tidyverse)
 library(corrplot)
+library(knitr)
 
 #Build theme
 mytheme <- theme_linedraw(base_size = 10) +
@@ -88,6 +89,14 @@ Data Collection Year | 2019
 
 # Exploratory Analysis 
 
+
+```{r top5, echo=FALSE}
+top5 <- company_profiles2 %>% 
+  slice_max(Inconsistency_ratio, n = 5) %>%
+  select(Company, Inconsistency_ratio)
+
+kable(top5, caption = "Top 5 Companies by Highest Reporting Inconsistency Ratio", align = 'l')
+```
 
 
 \newpage

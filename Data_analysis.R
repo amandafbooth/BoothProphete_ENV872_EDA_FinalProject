@@ -1,6 +1,6 @@
 library(tidyverse)
 library(corrplot)
-
+library(knitr)
 #Load data
 
 company_selection_clean <- read.csv("./Data/Processed/Company_Selection_Clean.csv")
@@ -51,19 +51,25 @@ summary(regression_profits_energy)
 
 summary(regression_ratio_mv)
 
-#Top 10 by deviation 
+#Top 5 by inconsistency ratio 
 
-top_n(company_profiles2$Inconsistency_ratio, 10, wt)
+top5 <- company_profiles2 %>% 
+  slice_max(Inconsistency_ratio, n = 5) %>%
+  select(Company, Inconsistency_ratio)
+
+kable(top5, caption = "Top 5 Companies by Highest Reporting Inconsistency Ratio", align = 'l')
+
 
 #Plots
 
 options(scipen=5) 
 
-ggplot(company_profiles2, aes(x = Assets, y = Total.energy.consumption)) +
+Plot1 <- ggplot(company_profiles2, aes(x = Assets, y = Total.energy.consumption)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
   scale_x_log10() +
   scale_y_log10() +
   labs(x = "Value of assets (in millions)", y = "Total energy consumption (MWh)")
+print(Plot1)
 
 
