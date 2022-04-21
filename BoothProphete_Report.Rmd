@@ -15,9 +15,7 @@ mainfont: Times New Roman
 
 \newpage
 \tableofcontents 
-\newpage
 \listoftables 
-\newpage
 \listoffigures 
 \newpage
 
@@ -101,8 +99,7 @@ Table 1: Data Information
 ---------------------| -------------
 Data Source          | Nature Communications
 Retrieved from       | https://www.nature.com/articles/s41467-021-26349-x
-Variables Used       | Company, Sales, Profits, Assets, Market value, Company report, 
-CDP emissions, Emission reports deviation, Reporting inconsistency ratio, Total energy consumption 
+Variables Used       | Company, Sales, Profits, Assets, Market value, Company report, CDP emissions, Emission reports deviation, Reporting inconsistency ratio, Total energy consumption 
 Data Collection Year | 2019
 \newpage
 
