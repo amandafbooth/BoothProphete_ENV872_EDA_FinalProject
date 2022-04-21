@@ -134,4 +134,5 @@ Our assumption that “big tech” would show more reporting discrepancies was n
 \newpage
 
 # References
-<add references here if relevant, otherwise delete this section> 
+
+Klaaßen, Lena, and Christian Stoll. “Harmonizing Corporate Carbon Footprints.” Nature News, Nature Publishing Group, 22 Oct. 2021, https://www.nature.com/articles/s41467-021-26349-x. 
