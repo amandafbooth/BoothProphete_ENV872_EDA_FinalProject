@@ -118,7 +118,10 @@ kable(top5, caption = "Top 5 Companies by Highest Reporting Inconsistency Ratio"
 
 We did not find a statistically significant relationship between companies’ reporting discrepancy ratios and variables that indicate size. As expected, we found a relationship between total energy consumption and size indicators. But surprisingly the indicator with the most confidence was value of assets. 
 
-```{r plot1, include=FALSE, fig.cap="Relationship between asset value and total energy consumption"}
+```{r plot1, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Relationship between asset value and total energy consumption"}
+
+options(scipen=5) 
+
 Plot1 <- ggplot(company_profiles2, aes(x = Assets, y = Total.energy.consumption)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
